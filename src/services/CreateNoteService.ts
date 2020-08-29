@@ -1,5 +1,3 @@
-import { getCustomRepository } from 'typeorm';
-
 import Note from '../models/Note';
 import NotesRepository from '../repositories/NotesRepository';
 
@@ -8,14 +6,16 @@ interface RequestDTO {
 }
 
 class CreateNoteService {
-  public async execute({ text }: RequestDTO): Promise<Note> {
-    const notesRepository = getCustomRepository(NotesRepository);
+  private notesRepository: NotesRepository;
 
-    const note = notesRepository.create({
+  constructor(notesRepository: NotesRepository) {
+    this.notesRepository = notesRepository;
+  }
+
+  public execute({ text }: RequestDTO): Note | null {
+    const note = this.notesRepository.create({
       text,
     });
-
-    await notesRepository.save(note);
 
     return note;
   }

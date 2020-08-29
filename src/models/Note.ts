@@ -1,12 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { v4 } from 'uuid';
 
-@Entity('appointments')
 class Note {
-  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
   text: string;
+
+  constructor({ text }: Omit<Note, 'id'>) {
+    this.id = v4();
+    this.text = text;
+  }
 }
 
 export default Note;
