@@ -1,14 +1,16 @@
 import { Router } from 'express';
+import { getCustomRepository } from 'typeorm';
 
 import NotesRepository from '../repositories/NotesRepository';
 import CreateNoteService from '../services/CreateNoteService';
 
 const notesRouter = Router();
-const notesRepository = new NotesRepository();
 
-notesRouter.get('/', (request, response) => {
+notesRouter.get('/', async (request, response) => {
   try {
-    const notes = notesRepository.all();
+    const notesRepository = getCustomRepository(NotesRepository);
+
+    const notes = await notesRepository.find();
 
     return response.json(notes);
   } catch (err) {
@@ -16,13 +18,13 @@ notesRouter.get('/', (request, response) => {
   }
 });
 
-notesRouter.post('/', (request, response) => {
+notesRouter.post('/', async (request, response) => {
   try {
     const { text } = request.body;
 
-    const createNote = new CreateNoteService(notesRepository);
+    const createNote = new CreateNoteService();
 
-    const note = createNote.execute({ text });
+    const note = await createNote.execute({ text });
 
     return response.json(note);
   } catch (err) {
