@@ -2,13 +2,19 @@ import {
   Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('notes')
-class Note {
+@Entity('users')
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  text: string;
+  name: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -17,4 +23,4 @@ class Note {
   updated_at: Date;
 }
 
-export default Note;
+export default User;
