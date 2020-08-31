@@ -1,10 +1,15 @@
+/* eslint-disable camelcase */
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 
 import NotesRepository from '../repositories/NotesRepository';
 import CreateNoteService from '../services/CreateNoteService';
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 const notesRouter = Router();
+
+notesRouter.use(ensureAuthenticated);
 
 notesRouter.get('/', async (request, response) => {
   try {
@@ -20,11 +25,11 @@ notesRouter.get('/', async (request, response) => {
 
 notesRouter.post('/', async (request, response) => {
   try {
-    const { text } = request.body;
+    const { user_id, text } = request.body;
 
     const createNote = new CreateNoteService();
 
-    const note = await createNote.execute({ text });
+    const note = await createNote.execute({ user_id, text });
 
     return response.json(note);
   } catch (err) {
