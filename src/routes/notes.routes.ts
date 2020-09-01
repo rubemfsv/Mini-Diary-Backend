@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Router } from 'express';
+import { Router, Response, Request } from 'express';
 import { getCustomRepository } from 'typeorm';
 
 import NotesRepository from '../repositories/NotesRepository';
@@ -11,11 +11,13 @@ const notesRouter = Router();
 
 notesRouter.use(ensureAuthenticated);
 
-notesRouter.get('/', async (request, response) => {
+notesRouter.get('/', async (request: Request, response: Response) => {
   try {
     const notesRepository = getCustomRepository(NotesRepository);
 
-    const notes = await notesRepository.find();
+    const { id } = request.user;
+
+    const notes = await notesRepository.find({ where: { user_id: id } });
 
     return response.json(notes);
   } catch (err) {
@@ -32,6 +34,20 @@ notesRouter.post('/', async (request, response) => {
     const note = await createNote.execute({ user_id, text });
 
     return response.json(note);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+notesRouter.delete('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+
+    const notesRepository = getCustomRepository(NotesRepository);
+
+    const deleteNote = await notesRepository.delete(id);
+
+    return response.status(200).json(deleteNote);
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
