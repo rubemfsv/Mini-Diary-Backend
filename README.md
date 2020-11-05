@@ -26,7 +26,7 @@ docker run --name postgres_diary -e POSTGRES_PASSWORD=docker -p 5436:5432 -d pos
 docker start postgres_diary
 ```
 
-- Open the Dbeaver and create a new connection with Postgres. Change the port to 5430 and in the password, you type "docker", as you have defined above when create a postgres image on docker.
+- Open the Dbeaver and create a new connection with Postgres. Change the port to 5436 and in the password, you type "docker", as you have defined above when create a postgres image on docker.
 
 - After that, create a new database in yout postgres connection inside Dbeaver. Write "mini_diary" in the database name. 
 
