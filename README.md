@@ -16,9 +16,9 @@
 git clone https://github.com/rubemfsv/Mini-Diary-Backend.git
 ```
 
-- Install the postgres image on your docker container by the following code (note we are using port 5430 in our postgres in this project):
+- Install the postgres image on your docker container by the following code (note we are using port 5436 in our postgres in this project):
 ```
-docker run --name postgres_diary -e POSTGRES_PASSWORD=docker -p 5430:5432 -d postgres
+docker run --name postgres_diary -e POSTGRES_PASSWORD=docker -p 5436:5432 -d postgres
 ```
 
 - Start postgres image
