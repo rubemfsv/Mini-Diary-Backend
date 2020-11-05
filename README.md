@@ -1,4 +1,4 @@
-# Mini Diário Backend
+# Mini Diary Backend
 
 ## :gear: Run the project locally
 
@@ -40,4 +40,4 @@ yarn
 yarn start
 ```
 
-Have fun!
+#### Have fun!
