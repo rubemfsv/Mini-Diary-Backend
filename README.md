@@ -46,5 +46,3 @@ yarn start
  * Docker
  * Express
  * TypeORM
-
-### Have fun!
