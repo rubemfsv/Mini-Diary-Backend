@@ -40,4 +40,11 @@ yarn
 yarn start
 ```
 
-#### Have fun!
+## :computer: Technologies Used
+ * Node.js
+ * PostgresDB
+ * Docker
+ * Express
+ * TypeORM
+
+### Have fun!
